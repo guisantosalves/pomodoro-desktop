@@ -26,11 +26,24 @@ export const App = () => {
   const offset = circumference * (1 - progress);
 
   const label =
-    status === "focus" ? "Foco" : status === "break" ? "Pausa" : "Idle";
+    status === "focus" ? "Foco" : status === "break" ? "Pausa" : "Parado";
+
+  const startFocus = () => (window as any).api.startFocus();
+  const stopTimer = () => (window as any).api.stopTimer();
+  const startBreak = () => (window as any).api.startBreak();
 
   return (
     <div className="main-container">
-      <div className="timer-container">
+      <div
+        className="timer-container"
+        onClick={() => {
+          if (status === "idle") {
+            startFocus();
+          } else {
+            stopTimer();
+          }
+        }}
+      >
         <svg className="progress-ring" width="700" height="700">
           <defs>
             <filter id="glow">
@@ -92,6 +105,9 @@ export const App = () => {
             </p>
           </div>
         </div>
+      </div>
+      <div>
+        <button onClick={() => startBreak()}>Iniciar Pausa</button>
       </div>
     </div>
   );

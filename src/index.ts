@@ -5,6 +5,7 @@ import {
   Menu,
   NativeImage,
   nativeImage,
+  ipcMain,
 } from "electron";
 import path from "node:path";
 import {
@@ -125,6 +126,10 @@ app.on("ready", () => {
     },
     onComplete: (state) => updateTrayTooltip(state, 0),
   });
+
+  ipcMain.on("timer:start-focus", () => startFocus());
+  ipcMain.on("timer:stop", () => stopTimer());
+  ipcMain.on("timer:start-break", () => startBreak());
 });
 
 app.on("activate", () => {

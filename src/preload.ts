@@ -12,17 +12,22 @@ antes do renderer process ser criado, e é onde você pode expor funções ou va
   O renderer nunca tem acesso direto ao Node/Electron. Tudo passa pelo preload.ts, que é a "janelinha de atendimento" entre os dois mundos.
 */
 
-
-// tudo passa por aqui 
+// tudo passa por aqui
 import { contextBridge, ContextBridge, ipcRenderer } from "electron";
 
 type Tick = (state: string, remaining: number) => void;
 
 // I can use as window.api
 contextBridge.exposeInMainWorld("api", {
+  //webContents.send + ipcRenderer.on │ Main → Renderer │ Dados
   onTimerTick: (callback: Tick) => {
     ipcRenderer.on("timer:tick", (_event, state, remaining) => {
       callback(state, remaining);
     });
   },
+
+  // ipcRenderer.send + ipcMain.on     │ Renderer → Main │ Ações
+  startFocus: () => ipcRenderer.send("timer:start-focus"),
+  stopTimer: () => ipcRenderer.send("timer:stop"),
+  startBreak: () => ipcRenderer.send("timer:start-break"),
 });
