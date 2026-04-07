@@ -119,7 +119,10 @@ app.on("ready", () => {
   createTray();
 
   setTimerCallbacks({
-    onTick: (state, remaining) => updateTrayTooltip(state, remaining),
+    onTick: (state, remaining) => {
+      updateTrayTooltip(state, remaining);
+      mainWindow?.webContents.send("timer:tick", state, remaining);
+    },
     onComplete: (state) => updateTrayTooltip(state, 0),
   });
 });
