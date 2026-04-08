@@ -35,4 +35,9 @@ contextBridge.exposeInMainWorld("api", {
   setDurations: (focus: number, breakTimer: number) =>
     ipcRenderer.invoke("config:set-durations", focus, breakTimer),
   getDurations: () => ipcRenderer.invoke("config:get-durations"),
+
+  // sessions
+  getAllSessions: () => ipcRenderer.invoke("sessions:get-all"),
+  getSessionByDay: (day: string) =>
+    ipcRenderer.invoke("sessions:get-all-by-day", day),
 });

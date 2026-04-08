@@ -3,9 +3,9 @@ import {
   BrowserWindow,
   Tray,
   Menu,
-  NativeImage,
   nativeImage,
   ipcMain,
+  Notification,
 } from "electron";
 import path from "node:path";
 import {
@@ -15,7 +15,6 @@ import {
   setTimerCallbacks,
   TimerState,
   setDurations,
-  getDurations,
 } from "./timerlogic/timer";
 import {
   getSettings,
@@ -23,10 +22,18 @@ import {
   saveSession,
   getWeeklySessions,
   getAllSessions,
+  getSessionsByDay,
 } from "./db/db";
 
-const iconPath = path.join(__dirname, "..", "..", "assets", "icon.ico");
-const icon = nativeImage.createFromPath(iconPath);
+const getIconPath = (): string => {
+  // it's a trick to make sure the icon is correctly loaded.
+  if (app.isPackaged) {
+    return path.join(process.resourcesPath, "icon.ico");
+  }
+  return path.join(__dirname, "..", "..", "assets", "icon.ico");
+};
+
+const icon = nativeImage.createFromPath(getIconPath());
 
 app.setAppUserModelId("com.magikzub.pomodoro");
 
@@ -68,7 +75,7 @@ const createWindow = (): void => {
   });
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 const formatTime = (seconds: number): string => {
@@ -140,6 +147,18 @@ app.on("ready", () => {
           ? Number(getSettings("focus_duration")) * 60
           : Number(getSettings("break_duration")) * 60;
       if (state !== "idle") saveSession(state, duration, true);
+
+      // notificação quando um ciclo completa
+      const notify = new Notification({
+        title: state === "focus" ? "Foco Finalizado!" : "Pausa finalizada!",
+        body:
+          state === "focus"
+            ? "Hora de fazer uma pausa!"
+            : "Vamos voltar ao trabalho!",
+        icon: getIconPath(),
+      });
+
+      notify.show();
     },
   });
 
@@ -171,8 +190,11 @@ app.on("ready", () => {
   );
 
   // sessions
-  ipcMain.handle("db:weekly-sessions", () => getWeeklySessions());
-  ipcMain.handle("db:all-sessions", () => getAllSessions());
+  ipcMain.handle("sessions:weekly-sessions", () => getWeeklySessions());
+  ipcMain.handle("sessions:get-all", () => getAllSessions());
+  ipcMain.handle("sessions:get-all-by-day", (_event, day: string) =>
+    getSessionsByDay(day),
+  );
 });
 
 app.on("activate", () => {

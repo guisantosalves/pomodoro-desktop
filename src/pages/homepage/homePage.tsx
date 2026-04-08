@@ -53,10 +53,6 @@ export const HomePage = () => {
 
   return (
     <div className="main-container">
-      <div className="header-nav">
-        <h1>MagikZub Pomodoro</h1>
-        <span onClick={() => navigate("/settings")}>Configurações</span>
-      </div>
       <div
         className="timer-container"
         onClick={() => {

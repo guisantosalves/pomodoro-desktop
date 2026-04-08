@@ -66,6 +66,12 @@ export const getWeeklySessions = () => {
     .all();
 };
 
+export const getSessionsByDay = (day: string) => {
+  return db
+    .prepare("SELECT * FROM sessions WHERE date(started_at) = ? LIMIT 60")
+    .all(day);
+};
+
 export const getAllSessions = () => {
   return db
     .prepare("SELECT * FROM sessions ORDER BY started_at DESC LIMIT 50")

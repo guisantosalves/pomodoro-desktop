@@ -1,0 +1,125 @@
+.table-wrapper {
+  width: 100%;
+  max-width: 700px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #2a2a2e;
+}
+
+/* ── Filtro ──────────────────────────────── */
+
+.table-filter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #222226;
+  border-bottom: 1px solid #2a2a2e;
+}
+
+.table-filter label {
+  color: #888;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.table-filter input[type="date"] {
+  background: #2a2a2e;
+  border: 1px solid #3a3a3e;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #FF8A80;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.table-filter input[type="date"]:focus {
+  border-color: #FF8A80;
+}
+
+.table-filter input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+}
+
+/* ── Table ───────────────────────────────── */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.table thead tr {
+  background: #222226;
+}
+
+.table th {
+  padding: 12px 16px;
+  text-align: left;
+  color: #888;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #2a2a2e;
+}
+
+.table td {
+  padding: 12px 16px;
+  color: #ccc;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #1f1f23;
+}
+
+.table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.table tbody tr:hover {
+  background: #2a2a2e;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-empty {
+  text-align: center;
+  color: #555;
+  padding: 32px 16px;
+  font-style: italic;
+}
+
+/* badge de tipo */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-focus {
+  background: rgba(255, 138, 128, 0.15);
+  color: #FF8A80;
+}
+
+.badge-break {
+  background: rgba(66, 165, 245, 0.15);
+  color: #42a5f5;
+}
+
+.badge-completed {
+  color: #66bb6a;
+}
+
+.badge-incomplete {
+  color: #ef5350;
+}

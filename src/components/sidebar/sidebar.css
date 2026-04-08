@@ -1,0 +1,111 @@
+.hamburger {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background: #666;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger:hover .hamburger-line {
+  background: #ff8a80;
+}
+
+/* animação X quando aberto */
+.hamburger-line.open:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-line.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-line.open:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* overlay escuro */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100vh;
+  background: #222226;
+  z-index: 1000;
+  transition: left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-header {
+  padding: 0 24px;
+  margin-bottom: 16px;
+}
+
+.sidebar-header h2 {
+  color: #ff8a80;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 300;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-links li {
+  padding: 14px 24px;
+  color: #aaa;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar-links li:hover {
+  background: #2a2a2e;
+  color: #ff8a80;
+}

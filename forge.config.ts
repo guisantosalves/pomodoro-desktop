@@ -15,6 +15,9 @@ const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
     icon: "./assets/icon",
+    extraResource: [
+      "./assets/icon.ico", // necessário pra ter o ícone na barra de tarefas do Windows
+    ],
   },
   rebuildConfig: {},
   makers: [
