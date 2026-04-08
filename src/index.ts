@@ -14,6 +14,8 @@ import {
   stopTimer,
   setTimerCallbacks,
   TimerState,
+  setDurations,
+  getDurations,
 } from "./timerlogic/timer";
 
 const iconPath = path.join(__dirname, "..", "..", "assets", "icon.ico");
@@ -130,6 +132,12 @@ app.on("ready", () => {
   ipcMain.on("timer:start-focus", () => startFocus());
   ipcMain.on("timer:stop", () => stopTimer());
   ipcMain.on("timer:start-break", () => startBreak());
+  ipcMain.handle(
+    "timer:set-durations",
+    (_event, focus: number, breakTimer: number) =>
+      setDurations(focus, breakTimer),
+  );
+  ipcMain.handle("timer:get-durations", () => getDurations());
 });
 
 app.on("activate", () => {

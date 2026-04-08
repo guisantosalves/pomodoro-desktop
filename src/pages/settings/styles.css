@@ -1,0 +1,107 @@
+.config-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #1a1a1e;
+  gap: 32px;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.config-container h2 {
+  color: #ff8a80;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 300;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  color: #888;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.input-group input {
+  background: #2a2a2e;
+  border: 1px solid #3a3a3e;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #ff8a80;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 1.2rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-group input:focus {
+  border-color: #ff8a80;
+}
+
+.input-group input:hover {
+  border-color: #555;
+}
+
+.config-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.btn-save {
+  flex: 1;
+  padding: 12px;
+  background: #ff8a80;
+  color: #1a1a1e;
+  border: none;
+  border-radius: 8px;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-save:hover {
+  opacity: 0.85;
+}
+
+.btn-back {
+  flex: 1;
+  padding: 12px;
+  background: transparent;
+  color: #888;
+  border: 1px solid #3a3a3e;
+  border-radius: 8px;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn-back:hover {
+  border-color: #888;
+  color: #ccc;
+}

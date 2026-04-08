@@ -4,8 +4,8 @@ let timerState: TimerState = "idle";
 let remainingSeconds = 0;
 let intervalId: NodeJS.Timeout | null = null;
 
-const FOCUS_DURATION = 25 * 60;
-const BREAK_DURATION = 5 * 60;
+let focusDuration = 25 * 60;
+let breakDuration = 5 * 60;
 
 let onTick: (state: TimerState, remaining: number) => void = () => {};
 let onComplete: (state: TimerState) => void = () => {};
@@ -16,6 +16,18 @@ export const setTimerCallbacks = (callbacks: {
 }): void => {
   if (callbacks.onTick) onTick = callbacks.onTick;
   if (callbacks.onComplete) onComplete = callbacks.onComplete;
+};
+
+export const setDurations = (focus: number, breakTime: number) => {
+  focusDuration = focus * 60;
+  breakDuration = breakTime * 60;
+};
+
+export const getDurations = () => {
+  return {
+    focus: focusDuration / 60,
+    break: breakDuration / 60,
+  };
 };
 
 export const tick = (): void => {
@@ -41,7 +53,7 @@ export const stopTimer = (): void => {
 export const startFocus = () => {
   stopTimer();
   timerState = "focus";
-  remainingSeconds = FOCUS_DURATION;
+  remainingSeconds = focusDuration;
   intervalId = setInterval(tick, 1000);
   onTick(timerState, remainingSeconds);
 };
@@ -49,7 +61,7 @@ export const startFocus = () => {
 export const startBreak = () => {
   stopTimer();
   timerState = "break";
-  remainingSeconds = BREAK_DURATION;
+  remainingSeconds = breakDuration;
   intervalId = setInterval(tick, 1000);
   onTick(timerState, remainingSeconds);
 };

@@ -17,6 +17,13 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
+import { HashRouter } from "react-router-dom/dist";
+import { ToastContainer } from "./components/toast/Toast";
 
-const root = createRoot((document as any).getElementById("app"));
-root.render(<App />);
+const root = createRoot(document.getElementById("app"));
+root.render(
+  <HashRouter>
+    <App />
+    <ToastContainer />
+  </HashRouter>,
+);
