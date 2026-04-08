@@ -21,7 +21,13 @@ const config: ForgeConfig = {
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({}),
+    new MakerSquirrel({
+      name: "pomodoro",
+      setupIcon: "./assets/icon.ico",
+      iconUrl:
+        "https://raw.githubusercontent.com/pomodoro-desktop/main/assets/icon.ico",
+      setupExe: "pomodoroSetup.exe",
+    }),
     new MakerZIP({}, ["darwin"]),
     new MakerRpm({}),
     new MakerDeb({}),
