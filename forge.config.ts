@@ -16,7 +16,7 @@ const config: ForgeConfig = {
     asar: true,
     name: "Pomodoro",
     executableName: "pomodoro",
-    icon: "./assets/icon.png",
+    icon: "./assets/icon.ico",
     extraResource: [
       "./assets/icon.ico",
       "./assets/icon.png", // necessário pra ter o ícone na barra de tarefas do Windows
@@ -26,7 +26,7 @@ const config: ForgeConfig = {
   makers: [
     new MakerSquirrel({
       name: "pomodoro",
-      setupIcon: "./assets/icon.png",
+      setupIcon: "./assets/icon.ico",
       iconUrl:
         "https://raw.githubusercontent.com/pomodoro-desktop/main/assets/icon.png",
       setupExe: "pomodoroSetup.exe",
