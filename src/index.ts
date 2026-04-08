@@ -28,9 +28,9 @@ import {
 const getIconPath = (): string => {
   // it's a trick to make sure the icon is correctly loaded.
   if (app.isPackaged) {
-    return path.join(process.resourcesPath, "icon.ico");
+    return path.join(process.resourcesPath, "icon.png");
   }
-  return path.join(__dirname, "..", "..", "assets", "icon.ico");
+  return path.join(__dirname, "..", "..", "assets", "icon.png");
 };
 
 const icon = nativeImage.createFromPath(getIconPath());
@@ -52,11 +52,13 @@ let mainWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
 
 const createWindow = (): void => {
+  const winIcon = nativeImage.createFromPath(getIconPath());
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
-    icon: path.join(__dirname, "..", "..", "assets", "icon.ico"),
+    icon: winIcon,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
@@ -64,6 +66,8 @@ const createWindow = (): void => {
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+
+  mainWindow.setIcon(icon);
 
   // closed btn will only hide the window
   mainWindow.on("close", (event) => {

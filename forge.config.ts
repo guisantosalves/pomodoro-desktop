@@ -14,18 +14,21 @@ import { rendererConfig } from "./webpack.renderer.config";
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
-    icon: "./assets/icon",
+    name: "Pomodoro",
+    executableName: "pomodoro",
+    icon: "./assets/icon.png",
     extraResource: [
-      "./assets/icon.ico", // necessário pra ter o ícone na barra de tarefas do Windows
+      "./assets/icon.ico",
+      "./assets/icon.png", // necessário pra ter o ícone na barra de tarefas do Windows
     ],
   },
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({
       name: "pomodoro",
-      setupIcon: "./assets/icon.ico",
+      setupIcon: "./assets/icon.png",
       iconUrl:
-        "https://raw.githubusercontent.com/pomodoro-desktop/main/assets/icon.ico",
+        "https://raw.githubusercontent.com/pomodoro-desktop/main/assets/icon.png",
       setupExe: "pomodoroSetup.exe",
     }),
     new MakerZIP({}, ["darwin"]),
