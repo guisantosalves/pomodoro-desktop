@@ -33,6 +33,6 @@ contextBridge.exposeInMainWorld("api", {
 
   // config
   setDurations: (focus: number, breakTimer: number) =>
-    ipcRenderer.invoke("timer:set-durations", focus, breakTimer),
-  getDurations: () => ipcRenderer.invoke("timer:get-durations"),
+    ipcRenderer.invoke("config:set-durations", focus, breakTimer),
+  getDurations: () => ipcRenderer.invoke("config:get-durations"),
 });

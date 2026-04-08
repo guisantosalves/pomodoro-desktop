@@ -17,6 +17,13 @@ import {
   setDurations,
   getDurations,
 } from "./timerlogic/timer";
+import {
+  getSettings,
+  setSettings,
+  saveSession,
+  getWeeklySessions,
+  getAllSessions,
+} from "./db/db";
 
 const iconPath = path.join(__dirname, "..", "..", "assets", "icon.ico");
 const icon = nativeImage.createFromPath(iconPath);
@@ -126,18 +133,46 @@ app.on("ready", () => {
       updateTrayTooltip(state, remaining);
       mainWindow?.webContents.send("timer:tick", state, remaining);
     },
-    onComplete: (state) => updateTrayTooltip(state, 0),
+    onComplete: (state) => {
+      updateTrayTooltip(state, 0);
+      const duration =
+        state === "focus"
+          ? Number(getSettings("focus_duration")) * 60
+          : Number(getSettings("break_duration")) * 60;
+      if (state !== "idle") saveSession(state, duration, true);
+    },
   });
 
   ipcMain.on("timer:start-focus", () => startFocus());
   ipcMain.on("timer:stop", () => stopTimer());
   ipcMain.on("timer:start-break", () => startBreak());
+
+  // getting from the db
+  const focus = Number(getSettings("focus_duration"));
+  const breakMin = Number(getSettings("break_duration"));
+  if (focus && breakMin) {
+    setDurations(focus, breakMin);
+  }
+
+  // config
+  ipcMain.handle("config:get-durations", () => {
+    const focus = Number(getSettings("focus_duration")) || 25;
+    const breakTimer = Number(getSettings("break_duration")) || 5;
+    setDurations(focus, breakTimer);
+    return { focus, break: breakTimer };
+  });
   ipcMain.handle(
-    "timer:set-durations",
-    (_event, focus: number, breakTimer: number) =>
-      setDurations(focus, breakTimer),
+    "config:set-durations",
+    (_event, focus: number, breakTimer: number) => {
+      setSettings("focus_duration", focus.toString());
+      setSettings("break_duration", breakTimer.toString());
+      setDurations(focus, breakTimer);
+    },
   );
-  ipcMain.handle("timer:get-durations", () => getDurations());
+
+  // sessions
+  ipcMain.handle("db:weekly-sessions", () => getWeeklySessions());
+  ipcMain.handle("db:all-sessions", () => getAllSessions());
 });
 
 app.on("activate", () => {
