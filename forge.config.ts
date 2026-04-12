@@ -20,6 +20,7 @@ const config: ForgeConfig = {
     extraResource: [
       "./assets/icon.ico",
       "./assets/icon.png", // necessário pra ter o ícone na barra de tarefas do Windows
+      "./assets/notify.mp3",
     ],
   },
   rebuildConfig: {},

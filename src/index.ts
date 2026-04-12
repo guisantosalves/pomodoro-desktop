@@ -24,6 +24,7 @@ import {
   getAllSessions,
   getSessionsByDay,
 } from "./db/db";
+import sound from "sound-play";
 
 const getIconPath = (): string => {
   // it's a trick to make sure the icon is correctly loaded.
@@ -31,6 +32,14 @@ const getIconPath = (): string => {
     return path.join(process.resourcesPath, "icon.png");
   }
   return path.join(__dirname, "..", "..", "assets", "icon.png");
+};
+
+const getSoundPath = () => {
+  // em produção os extraResource ficam em process.resourcesPath
+  // em dev apontamos direto para a pasta assets do projeto
+  return app.isPackaged
+    ? path.join(process.resourcesPath, "notify.mp3")
+    : path.join(app.getAppPath(), "assets", "notify.mp3");
 };
 
 const icon = nativeImage.createFromPath(getIconPath());
@@ -163,6 +172,9 @@ app.on("ready", () => {
       });
 
       notify.show();
+      sound.play(getSoundPath()).catch((err) => {
+        console.error(err);
+      });
     },
   });
 
